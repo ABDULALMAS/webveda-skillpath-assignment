@@ -31,8 +31,7 @@ const ACCENTS = [
     { background: "#8EDCF5", foreground: "#0B0D12" },
 ]
 
-// Guards against a malformed 200 (missing/non-numeric/negative fields),
-// not just a malformed array. Checks every field on Course.
+// Validate the response shape before using course data.
 function isValidCourse(course: unknown): course is Course {
     const c = course as Course
     return (
@@ -128,8 +127,7 @@ export default function Courses(props: { title: string; cardAccent: string }) {
     // once a newer one has taken over.
     const loadControllerRef = React.useRef<AbortController | null>(null)
 
-    // "Card Accent" drives the first slot of the rotation, so every 4th card
-    // (0, 4, 8...) consistently reflects the panel color, not just card #1.
+    // Use the selected accent as the first color in the card rotation.
     const accents = React.useMemo(
         () => [
             { background: cardAccent, foreground: "#FFFFFF" },
